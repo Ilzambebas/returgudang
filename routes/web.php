@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-// Route::get('/dashboard', function () {
+// Route::get('/dashboard', function () x{
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 // Route::get('/login', [AuthController::class,'index'])->name('login');
@@ -60,6 +60,8 @@ Route::post('/satuan/store', [SatuanController::class,'store'])->name('satuan.st
 
 // Data Master (Jenis)
 Route::get('/jenis', [JenisController::class,'jenis'])->name('jenis.jenis');
+Route::get('jenis/edit',[JenisController::class,'edit'])->name('jenis.edit');
+Route::post('jenis/update',[JenisController::class,'update'])->name('jenis.update');
 Route::post('/jenis/create', [JenisController::class,'create'])->name('jenis.create');
 Route::post('/jenis/store', [JenisController::class,'store'])->name('jenis.store');
 Route::post('/jenis/destroy', [JenisController::class,'destroy'])->name('jenis.destroy');

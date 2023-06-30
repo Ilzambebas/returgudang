@@ -16,7 +16,7 @@ class JenisController extends Controller
     // public function create(){
     //     return view('admin.master.jenis.create');
     // }
-   
+
     public function store(Request $request)
     {
         Jenis::create([
@@ -26,31 +26,38 @@ class JenisController extends Controller
              'updated_at'      => date('Y-m-d H:i:s'),
              'deleted_at'      => date('Y-m-d H:i:s'),
         ]);
-        return redirect('/jenis')->with('succes', 'Data Berhasil Disimpan');
+        return redirect('/jenis')->with('status', 'Data Berhasil Disimpan');
     }
 
-    public function update(Request $request, $id_jenis)
+    public function update(Request $request)
     {
-        $jenis = Jenis::find($id_jenis);
- 
+        $jenis = Jenis::where('id_jenis',$request->get('id'))->first();
+
         $jenis->nama_jenis  = $request->nama_jenis;
         $jenis->status       = $request->status;
         $jenis->created_at   = date('Y-m-d H:i:s');
         $jenis->updated_at   = date('Y-m-d H:i:s');
         $jenis->deleted_at   = date('Y-m-d H:i:s');
- 
-        $jenis->save();
 
-        return redirect('/jenis')->with('succes', 'Data Berhasil Di Perbarui');
+        $jenis->update();
+
+        return response()->json([
+            'message' => 'Berhasil mengganti data.',
+        ]);
     }
 
-   
-    public function destroy($id_jenis)
-    {
-        $jenis = Jenis::find($id_jenis);
- 
-        $jenis->delete();
+    function edit(Request $request){
 
-        return redirect('/jenis')->with('succes', 'Data Berhasil Di Hapus');
+        $data = Jenis::where('id_jenis','=',$request->get('id'))->first();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $jenis = Jenis::where('id_jenis','=',$request->get('id_jenis'))->first()->delete();
+
+        return redirect()->route('jenis.jenis')->with('status', 'Data Berhasil Di Hapus');
     }
 }

@@ -63,7 +63,7 @@
                 <ul id="dropdown-examplee" class="{{ Request::segment(0) == 'user' ? '' : 'hidden' }} py-2 space-y-2">
                 <li class="px-4">
                         <a href="{{ route('user.index') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(0) == 'user' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>    
+                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>
                     </li>
                     </li>
                 </ul>
@@ -80,7 +80,7 @@
                 <ul id="dropdownn-example" class="{{Request::segment(1) == 'Barang' ? '' : 'hidden' }} py-2 space-y-2">
                 <li class="px-4">
                         <a href="{{ route('barang.barang') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700  {{ Request::segment(1) == 'Barang' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>    
+                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>
                     </li>
                     </li>
                 </ul>
@@ -97,7 +97,7 @@
                 <ul id="dropdownn-examplee" class="{{Request::segment(2) == 'satuan' ? '' : 'hidden' }} py-2 space-y-2">
                 <li class="px-4">
                         <a href="{{ route('satuan.satuan') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700  {{ Request::segment(2) == 'Satuan' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>    
+                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>
                     </li>
                     </li>
                 </ul>
@@ -114,7 +114,7 @@
                 <ul id="dropdownn-examplle" class="{{Request::segment(3) == 'Bidang' ? '' : 'hidden' }} py-2 space-y-2">
                 <li class="px-4">
                         <a href="{{ route('bidang.bidang') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(3) == 'Bidang' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>    
+                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>
                     </li>
                     </li>
                 </ul>
@@ -131,7 +131,6 @@
                 <ul id="dropdownnn-examplee" class="{{Request::segment(4) == 'Jenis' ? '' : 'hidden' }} py-2 space-y-2">
                 <li class="px-4">
                         <a href="{{ route('jenis.jenis') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(4) == 'Jenis' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700" style="padding-left: 68px; font-size: 10pt;">Create</a>    
                     </li>
                     </li>
                 </ul>
