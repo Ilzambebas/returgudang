@@ -16,7 +16,7 @@ class BidangController extends Controller
     public function create(){
         return view('admin.master.user.create');
     }
-   
+
     public function store(Request $request)
     {
         Bidang::create([
@@ -26,31 +26,39 @@ class BidangController extends Controller
              'updated_at'      => date('Y-m-d H:i:s'),
              'deleted_at'      => date('Y-m-d H:i:s'),
         ]);
-        return redirect('/bidang')->with('succes', 'Data Berhasil Disimpan');
+        return redirect('/bidang')->with('status', 'Data Berhasil Disimpan');
     }
 
-    public function update(Request $request, $id_bidang)
+    function edit(Request $request){
+
+        $data = Bidang::where('id_bidang','=',$request->get('id'))->first();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function update(Request $request)
     {
-        $bidang = Bidang::find($id_bidang);
- 
+        $bidang = Bidang::where('id_bidang',$request->get('id'))->first();
+
         $bidang->nama_bidang  = $request->nama_bidang;
         $bidang->status       = $request->status;
         $bidang->created_at   = date('Y-m-d H:i:s');
         $bidang->updated_at   = date('Y-m-d H:i:s');
         $bidang->deleted_at   = date('Y-m-d H:i:s');
- 
+
         $bidang->save();
 
-        return redirect('/bidang')->with('succes', 'Data Berhasil Di Perbarui');
+        return response()->json([
+            'message' => 'Berhasil mengganti data.',
+        ]);
     }
 
-   
-    public function destroy($id_bidang)
-    {
-        $bidang = Bidang::find($id_bidang);
- 
-        $bidang->delete();
 
-        return redirect('/bidang')->with('succes', 'Data Berhasil Di Hapus');
+    public function destroy(Request $request)
+    {
+        $jenis = Bidang::where('id_bidang','=',$request->get('id_bidang'))->first()->delete();
+
+        return redirect()->route('bidang.bidang')->with('status', 'Data Berhasil Di Hapus');
     }
 }

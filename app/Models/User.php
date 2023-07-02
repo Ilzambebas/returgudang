@@ -11,12 +11,13 @@ class User extends Model
 
     protected $table = 'tabel_user';
     protected $primaryKey = 'id_user';
-    
+
     protected $fillable = [
         'id_user',
         'nama_user',
         'username',
         'password',
+        'no_hp',
         'level',
         'created_at',
         'updated_at',
@@ -25,9 +26,9 @@ class User extends Model
 
     protected $hidden = [
         'password',
-         
+
     ];
-    
+
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';

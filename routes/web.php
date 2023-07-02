@@ -52,11 +52,17 @@ Route::get('/return/repair', function(){ return view('admin.pages.return.repair'
 Route::get('/bidang', [BidangController::class,'bidang'])->name('bidang.bidang');
 Route::post('/bidang/create', [BidangController::class,'create'])->name('bidang.create');
 Route::post('/bidang/store', [BidangController::class,'store'])->name('bidang.store');
+Route::get('bidang/edit',[BidangController::class,'edit'])->name('bidang.edit');
+Route::post('bidang/update',[BidangController::class,'update'])->name('bidang.update');
+Route::post('bidang/destroy', [BidangController::class,'destroy'])->name('bidang.destroy');
 
 // Data Master (Satuan)
 Route::get('/satuan', [SatuanController::class,'satuan'])->name('satuan.satuan');
 Route::post('/satuan/create', [SatuanController::class,'create'])->name('satuan.create');
 Route::post('/satuan/store', [SatuanController::class,'store'])->name('satuan.store');
+Route::get('satuan/edit',[SatuanController::class,'edit'])->name('satuan.edit');
+Route::post('satuan/update',[SatuanController::class,'update'])->name('satuan.update');
+Route::post('satuan/destroy', [SatuanController::class,'destroy'])->name('satuan.destroy');
 
 // Data Master (Jenis)
 Route::get('/jenis', [JenisController::class,'jenis'])->name('jenis.jenis');
@@ -68,6 +74,10 @@ Route::post('/jenis/destroy', [JenisController::class,'destroy'])->name('jenis.d
 
 // Data Master (Barang)
 Route::get('/barang',[BarangController::class,'barang'])->name('barang.barang');
-Route::get('/barang/update',[BarangController::class,'update'])->name('barang.update');
+Route::post('barang/post',[BarangController::class,'store'])->name('barang.store');
+Route::get('barang/edit',[BarangController::class,'edit'])->name('barang.edit');
+Route::post('/barang/update',[BarangController::class,'update'])->name('barang.update');
+Route::post('barang/destroy', [BarangController::class,'destroy'])->name('barang.destroy');
+
 
 require __DIR__.'/auth.php';

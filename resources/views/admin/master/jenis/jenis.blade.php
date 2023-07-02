@@ -30,8 +30,25 @@
                         <label class="block text-sm">
                             Nama Jenis
                         </label>
-                        <input type="text" value="" name="nama_jenis" id="nama_jenis" placeholder="Nama Bidang" required class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" />
-                        <input type="text" value="" hidden name="id" id="id" hidden placeholder="Nama Bidang" required class="hidden placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" />
+                        <input
+                            type="text"
+                            value=""
+                            name="nama_jenis"
+                            id="nama_jenis"
+                            placeholder="Nama Jenis"
+                            required
+                            class="placeholder:text-gray-500
+                            text-sm focus:shadow-primary-outline
+                            leading-5.6 ease block w-full
+                            appearance-none rounded-lg
+                            border border-solid
+                            border-gray-300 bg-white
+                            bg-clip-padding py-2 px-3
+                            font-normal text-gray-700 transition-all
+                            focus:border-blue-500 focus:bg-white focus:text-gray-700
+                            focus:outline-none
+                            focus:transition-shadow" />
+                        <input type="text" value="" hidden name="id" id="id" hidden placeholder="Nama Jenis" required class="hidden placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" />
                     </div>
                     <div>
                         <label class="block text-sm">
@@ -90,7 +107,6 @@
         </div>
     </div>
 </div>
-
 <!-- hapus modal -->
 
 <div class="w-full px-6 py-6 mx-auto">
@@ -238,5 +254,4 @@
         $('#id_jenis').val(id);
     })
 </script>
-
 @endpush

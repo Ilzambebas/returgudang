@@ -1,143 +1,26 @@
 @extends('admin.layouts.app')
 @section('content')
-<!-- create modal -->
-<div id="createModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" style="z-index: 15;">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Tambahkan Pengguna
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="createModal">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
 
-                @csrf
-                <div class="p-6 space-y-6">
-                    <div>
-                        <label class="block text-sm">
-                            Nama Satuan
-                        </label>
-                        <input type="text" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" name="nama_satuan" placeholder= "Nama Satuan" required/>
-                    </div>
-                    <div>
-                        <label class="block text-sm">
-                            Status
-                        </label>
-                        <select class="form-control" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" name="status" required>
-                            <option value="" hidden="">-- Pilih Disini --</option>
-                            <option value="admin">YA</option>
-                            <option value="user">TIDAK</option>
-                        </select>
-                    </div>
-                <!-- Modal footer -->
-                <div class="flex items-end justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <div class="flex justify-between">
-                        <button type="submit" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-start mx-3">Simpan</button>
-                    </div>
-                </div>
-        </div>
-    </div>
-</div>
-</div>
 <!-- create modal -->
-
+@include('admin.master.satuan.create')
+<!-- create modal -->
 
 <!-- edit modal -->
-@foreach($satuan as $d)
-<div id="editModal {{ $d->id_satuan }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" style="z-index: 15;">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Edit Data pengguna
-                </h3>
-                <button href="{{ route('satuan.satuan') }}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="editModal">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <form method="POST" action="{{ route('satuan.store') }}"  enctype="multipart/form-data">
-                @csrf
-                <div class="p-6 space-y-6">
-                    <input type="hidden" value="{{ $d->id_satuan }}" name="id_satuan" required />
-                    <div>
-                        <label class="block text-sm">
-                            Nama Satuan
-                        </label>
-                        <input type="text" value="{{ $d->nama_satuan }}" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" name="nama_satuan" placeholder="Nama Satuan" required />
-                    </div>
-                    <div>
-                        <label class="block text-sm">
-                            Status
-                        </label>
-                        <input type="text" value="{{ $d->status }}" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" name="status" placeholder="status" />
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="flex items-end justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <div class="flex justify-between">
-                        <button data-modal-hide="defaultModal" type="update" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-start mx-3">Simpan</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
-
+@include('admin.master.satuan.edit')
 <!-- edit modal -->
 
 <!-- hapus modal -->
-@foreach($satuan as $g)
-<div id="hapusModal{{ $g->id_satuan }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" style="z-index: 15;">
-            <!-- Modal header -->
-            <div class="flex items-start justify-center p-4 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Apakah anda yakin?
-                </h3>
-            </div>
-            <!-- Modal body -->
-            <form method="GET" enctype="multipart/form-data" action="/satuan/{{ $g->id_satuan}}/destroy">
-                @csrf
-                <div class="p-6 space-y-6">
-                    <input type="hidden" value="{{ $g->id_satuan }}" name="id_satuan" required />
-                    <div class="flex items-center justify-center p-5">
-                        <img src="{{ asset('img/hapus-modal.svg') }}" alt="">
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <div class="">
-                    <a href="{{ route('satuan.satuan') }}"class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-start mx-3">Tidak</a>
-                    </div>
-                    <div class="">
-                        <button href="{{ route('satuan.satuan') }}" type="destroy" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-start mx-3">Yakin</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
+@include('admin.master.satuan.delete')
 <!-- hapus modal -->
 
 <div class="w-full px-6 py-6 mx-auto">
+    @include('components.notifications')
+    <div class="alert alert-danger p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
+
+    </div>
+    <div class="alert alert-success p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert" style="display: none;">
+
+    </div>
     <div class="flex flex-wrap mt-6 -mx-3">
         <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:flex-none">
             <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl dark:bg-gray-950 border-black-125 rounded-2xl bg-clip-border" style="height: 523px;">
@@ -165,7 +48,7 @@
                                 <tbody class="border-t">
                                     @php $no=1; @endphp
                                     @foreach($satuan as $row)
-                                    
+
                                     <tr>
                                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <div class="flex px-2">
@@ -181,14 +64,14 @@
                                             <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60">{{ $row->status }}</span>
                                         </td>
                                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <div class="flex items-center justify-center">
-                                                <button data-modal-target="editModal{{ $d->id_satuan}}" data-modal-toggle="editModal {{ $d->id_satuan}}" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3">
+                                            <div class="flex items-center justify-center">
+                                                <button id="edit" data-modal-target="editModal" data-modal-toggle="editModal" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3 edit-data"  data-id="{{ $row->id_satuan }}">
                                                     <div class="font-sm">Edit</div>
                                                     <div class="content-center mx-1">
                                                         <img src="{{ asset('img/edit.svg') }}" alt="">
                                                     </div>
                                                 </button>
-                                                <button data-modal-target="hapusModal{{ $g->id_satuan}}" data-modal-toggle="hapusModal{{ $g->id_satuan}}" class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-center">
+                                                <button data-modal-target="hapusModal" data-modal-toggle="hapusModal" class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-center hapus-data" data-id="{{ $row->id_satuan }}">
                                                     <div class="font-sm">Hapus</div>
                                                     <div class="content-center mx-1">
                                                         <img src="{{ asset('img/hapus.svg') }}" alt="">
@@ -211,6 +94,69 @@
 @endsection
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script>
+    var id;
+    // edit data
+    $('body').on('click','#edit',function(e) {
+        id = $(this).data('id');
+        $.ajax({
+            url: `{{ route('satuan.edit') }}`,
+            method: 'GET',
+            data:{
+                id:id
+            },
+            success: function(data) {
+                $.map(data,function(i) {
+                    $('#id').val(i.id_satuan);
+                    $('#nama_satuan').val(i.nama_satuan);
+                    // $('#status option[value="' + i.status+ '"]').prop('selected', true);
+                    $("#status_satuan").find(`option[value=${i.status}]`).prop('selected', true);
+                })
+            }
+        })
+    })
+    $('#SubmitUpdateForm').click(function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: `{{ route('satuan.update') }}`,
+            method: 'POST',
+            data: {
+                id: $('#id').val(),
+                nama_satuan: $('#nama_satuan').val(),
+                status: $('#status_satuan').val(),
+            },
+            success: function(result) {
+                if (result.errors) {
+                    $('.alert-danger').html('');
+                    $.each(result.errors, function(key, value) {
+                        $('.alert-danger').show();
+                        $('.alert-danger').append('<strong><li>'+value+'</li></strong>');
+                    });
+                } else {
+                    $('.alert-danger').hide();
+                    $('.alert-success').show();
+                    // setInterval(() => {
+                        // }, 2000);
+                    // var refreshIntervalId = setInterval($('#EditArticleModal').hide(), 10000);
+                    $(".alert-success").append(`<p id="">${result.message}</p>`);
+                    setInterval(function(){
+                        $('.alert-success').hide();
+                    }, 25000);
+                    location.reload();
+                    $('#editModal').modal('hide');
+                }
+            }
+        });
+    })
+    // hapus data
+    $('body').on('click','.hapus-data',function(e) {
+        id = $(this).data('id');
+        $('#id_satuan').val(id);
+    })
 </script>
 @endpush

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
+use App\Models\Jenis;
+use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +20,7 @@ class BarangController extends Controller
                 "tabel_jenis",
                 "tabel_jenis.id_jenis",
                 "=",
-                "tabel_barang.id_barang"
+                "tabel_barang.id_jenis"
             )
 
             ->leftJoin(
@@ -33,56 +35,62 @@ class BarangController extends Controller
                 "tabel_satuan.nama_satuan"
             )
             ->where(
-                "tabel_barang.deleted_at","=", null
+                'tabel_barang.id_jenis', '!=', null
             )
+            ->where(
+                'tabel_barang.id_satuan', '!=', null
+            )
+
             ->orderBy(
                 "id_barang","DESC"
             )
-            ->paginate(6);
-            return view(
-                "admin.master.barang.barang", compact('barang'));
+            ->get();
+            $satuan = Satuan::select('id_satuan','nama_satuan')->where('nama_satuan','!=',null)->get();
+            $jenis = Jenis::select('id_jenis','nama_jenis')->where('nama_jenis','!=',null)->get();
+            return view("admin.master.barang.barang", compact('barang','satuan','jenis'));
     }
 
     // public function create(){
     //     return view('admin.master.barang.create');
     // }
-   
+
     public function store(Request $request)
     {
         Barang::create([
-             'nama_barang'     => $request->nama_barang,
-             'nama_jenis'     => $request->nama_jenis,
-             'nama_satuan'     => $request->nama_satuan,
+             'nama_barang'     => $request->get('nama_barang'),
+             'id_jenis'     => $request->get('jenis_id'),
+             'id_satuan'     => $request->get('satuan_id'),
              'created_at'      => date('Y-m-d H:i:s'),
              'updated_at'      => date('Y-m-d H:i:s'),
              'deleted_at'      => date('Y-m-d H:i:s'),
         ]);
-        return redirect('/barang')->with('succes', 'Data Berhasil Disimpan');
+        return redirect('/barang')->with('status', 'Data Berhasil Disimpan');
     }
-
-    public function update(Request $request, $id_barang)
+    function edit(Request $request) {
+        $data = Barang::where('id_barang','=',$request->get('id'))->first();
+        return response()->json($data);
+    }
+    public function update(Request $request)
     {
-        $barang = Barang::find($id_barang);
- 
+        $barang = Barang::where('id_barang','=',$request->get('id'))->first();
         $barang->nama_barang  = $request->nama_barang;
-        $barang->nama_jenis   = $request->nama_jenis;
-        $barang->nama_satuan  = $request->nama_satuan;
+        $barang->id_jenis   = $request->jenis_id;
+        $barang->id_satuan  = $request->satuan_id;
         $barang->created_at   = date('Y-m-d H:i:s');
         $barang->updated_at   = date('Y-m-d H:i:s');
         $barang->deleted_at   = date('Y-m-d H:i:s');
- 
-        $barang->save();
 
-        return redirect('/barang')->with('succes', 'Data Berhasil Di Perbarui');
+        $barang->update();
+
+        return response()->json([
+            'message' => 'Berhasil mengganti data.',
+        ]);
     }
 
-   
-    // public function destroy($id_barang)
-    // {
-    //     $barang = Barang::find($id_barang);
- 
-    //     $barang->delete();
+    public function destroy(Request $request)
+    {
+        Barang::where('id_barang','=',$request->get('id_barang'))->first()->delete();
 
-    //     return redirect('/barang')->with('succes', 'Data Berhasil Di Hapus');
-    // }
+        return redirect()->route('barang.barang')->with('status', 'Data Berhasil Di Hapus');
+    }
 }
