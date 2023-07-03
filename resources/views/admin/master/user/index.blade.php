@@ -3,6 +3,10 @@
 <!-- create modal -->
 @include('admin.master.user.create')
 <!-- create modal -->
+{{-- edit modal --}}
+@include('admin.master.user.edit')
+{{-- hapus modal --}}
+@include('admin.master.user.delete')
 
 <div class="w-full px-6 py-6 mx-auto">
     @include('components.notifications')
@@ -53,13 +57,13 @@
                                         </td>
                                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                         <div class="flex items-center justify-center">
-                                                <button data-modal-target="editModal{{ $row->id_user}}" data-modal-toggle="editModal {{ $row->id_user}}" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3">
+                                                <button id="edit" data-modal-target="editModal" data-modal-toggle="editModal" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3 edit-data"  data-id="{{ $row->id_user }}">
                                                     <div class="font-sm">Edit</div>
                                                     <div class="content-center mx-1">
                                                         <img src="{{ asset('img/edit.svg') }}" alt="">
                                                     </div>
                                                 </button>
-                                                <button data-modal-target="hapusModal{{ $row->id_user}}" data-modal-toggle="hapusModal{{ $row->id_user}}" class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-center">
+                                                <button data-modal-target="hapusModal" data-modal-toggle="hapusModal" class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-center hapus-data" data-id="{{ $row->id_user }}">
                                                     <div class="font-sm">Hapus</div>
                                                     <div class="content-center mx-1">
                                                         <img src="{{ asset('img/hapus.svg') }}" alt="">
@@ -83,6 +87,35 @@
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    var id;
+    // edit data
+    $('body').on('click','#edit',function(e) {
+        id = $(this).data('id');
+        $.ajax({
+            url: `{{ route('user.edit') }}`,
+            method: 'GET',
+            data:{
+                id:id
+            },
+            success: function(data) {
+                // console.log(data);
+                $('#id_user').val(data.id_user);
+                $('#nama_user').val(data.nama_user);
+                $('#username').val(data.username);
+                $('#no_hp').val(data.no_hp);
+                $('#level option[value="' + data.level+ '"]').prop('selected', true);
+                // $("#status_bidang").find(`option[value=${i.status}]`).prop('selected', true);
+                // $.map(data,function(i) {
+                // })
+            }
+        })
+    })
+
+    // hapus data
+    $('body').on('click','.hapus-data',function(e) {
+        var id_user = $(this).data('id');
+        $('.id_user').val(id_user);
+    })
     const passwordToggle = document.querySelector('.js-password-toggle')
 
     passwordToggle.addEventListener('change', function() {

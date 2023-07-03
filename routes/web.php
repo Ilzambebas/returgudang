@@ -36,8 +36,9 @@ Route::get('/dashboard', function(){ return view('admin.pages.dashboard.dashboar
 Route::get('/user', [UserController::class,'index'])->name('user.index');
 Route::post('/user/create', [UserController::class,'create'])->name('user.create');
 Route::post('/user/store', [UserController::class,'store'])->name('user.store');
-Route::post('/user/update', [UserController::class,'store'])->name('user.update');
-Route::get('/user/destroy', [UserController::class,'destroy'])->name('user.destroy');
+Route::get('/user/edit', [UserController::class,'edit'])->name('user.edit');
+Route::post('/user/update', [UserController::class,'update'])->name('user.update');
+Route::post('/user/destroy', [UserController::class,'destroy'])->name('user.destroy');
 
 // Data Main (Return)
 Route::get('/return', function(){ return view('admin.pages.return.index'); })->name('return.index');

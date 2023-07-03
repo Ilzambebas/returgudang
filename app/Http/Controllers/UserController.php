@@ -43,30 +43,43 @@ class UserController extends Controller
 
     }
 
-    public function update(Request $request, $id_user)
+    function edit(Request $request) {
+        $user = User::where('id_user',$request->get('id'))->first();
+        return response()->json($user);
+    }
+
+    public function update(Request $request)
     {
-        $user = User::find($id_user);
+        $user = User::where('id_user',$request->get('id_user'))->first();
+        $user->nama_user = $request->get('nama_user');
+        if ($request->get('password') != null || $request->has('password')) {
+            $user->password = Hash::make($request->get('password'));
+        }
+        $user->username = $request->get('username');
+        $user->level = $request->get('level');
+        $user->no_hp = $request->get('no_hp');
+        $user->update();
+        return redirect('/user')->with('status', 'Data Berhasil Diganti');
+        // $user = User::find($id_user);
 
-        $user->nama_user       = $request->nama_user;
-        $user->username       = $request->username;
-        $user->password   = Hash::make($request->password);
-        $user->level      = $request->level;
-        $user->created_at = date('Y-m-d H:i:s');
-        $user->updated_at = date('Y-m-d H:i:s');
-        $user->deleted_at = date('Y-m-d H:i:s');
+        // $user->nama_user       = $request->nama_user;
+        // $user->username       = $request->username;
+        // $user->password   = Hash::make($request->password);
+        // $user->level      = $request->level;
+        // $user->created_at = date('Y-m-d H:i:s');
+        // $user->updated_at = date('Y-m-d H:i:s');
+        // $user->deleted_at = date('Y-m-d H:i:s');
 
-        $user->save();
+        // $user->save();
 
         return redirect('/user')->with('succes', 'Data Berhasil Di Perbarui');
     }
 
 
-    public function destroy($id_user)
+    public function destroy(Request $request)
     {
-        $user = User::find($id_user);
+        User::where('id_user',$request->get('id_user'))->first()->delete();
 
-        $user->delete();
-
-        return redirect('/user')->with('succes', 'Data Berhasil Di Hapus');
+        return redirect('/user')->with('status', 'Data Berhasil Di Hapus');
     }
 }
