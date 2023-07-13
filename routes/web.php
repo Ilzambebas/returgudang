@@ -5,7 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BidangController;
+use App\Http\Controllers\DataReturnController;
 use App\Http\Controllers\JenisController;
+use App\Http\Controllers\ReturnLayakPakaiController;
+use App\Http\Controllers\ReturnLayakRepairController;
+use App\Http\Controllers\ReturnRusakController;
 use App\Http\Controllers\SatuanController;
 
 /*
@@ -41,6 +45,17 @@ Route::post('/user/update', [UserController::class,'update'])->name('user.update
 Route::post('/user/destroy', [UserController::class,'destroy'])->name('user.destroy');
 
 // Data Main (Return)
+Route::prefix('return')->group(function () {
+    // data return
+    Route::resource('data-return',DataReturnController::class);
+    // return layak pakai
+    Route::resource('return-layak-pakai',ReturnLayakPakaiController::class);
+    // return layak repair
+    Route::resource('return-layak-repair', ReturnLayakRepairController::class);
+    // Return Rusak
+    Route::post('return-rusak/destroy-data', [ReturnRusakController::class,'destroyData'])->name('return-rusak.destroyData');
+    Route::resource('return-rusak', ReturnRusakController::class);
+});
 Route::get('/return', function(){ return view('admin.pages.return.index'); })->name('return.index');
 
 // Data Main (ReturRusak)

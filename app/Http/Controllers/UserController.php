@@ -60,26 +60,12 @@ class UserController extends Controller
         $user->no_hp = $request->get('no_hp');
         $user->update();
         return redirect('/user')->with('status', 'Data Berhasil Diganti');
-        // $user = User::find($id_user);
-
-        // $user->nama_user       = $request->nama_user;
-        // $user->username       = $request->username;
-        // $user->password   = Hash::make($request->password);
-        // $user->level      = $request->level;
-        // $user->created_at = date('Y-m-d H:i:s');
-        // $user->updated_at = date('Y-m-d H:i:s');
-        // $user->deleted_at = date('Y-m-d H:i:s');
-
-        // $user->save();
-
-        return redirect('/user')->with('succes', 'Data Berhasil Di Perbarui');
     }
 
 
     public function destroy(Request $request)
     {
         User::where('id_user',$request->get('id_user'))->first()->delete();
-
         return redirect('/user')->with('status', 'Data Berhasil Di Hapus');
     }
 }

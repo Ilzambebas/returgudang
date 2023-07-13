@@ -213,7 +213,7 @@
                                         </td>
                                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                         <div class="flex items-center justify-center">
-                                                <button id="edit" data-modal-target="editModal" data-modal-toggle="editModal" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3 edit-data"  data-id="{{ $row->id_barang }}">
+                                                <button id="edit" data-modal-target="editModal" data-modal-toggle="editModal" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3 edit-data"  data-barang="{{ $row->id_barang }}">
                                                     <div class="font-sm">Edit</div>
                                                     <div class="content-center mx-1">
                                                         <img src="{{ asset('img/edit.svg') }}" alt="">
@@ -288,7 +288,7 @@
 
     }
     $('body').on('click','#edit',function(e) {
-        id = $(this).data('id');
+        id = $(this).data('barang');
 
         $.ajax({
             url: `{{ route('barang.edit') }}`,
@@ -298,6 +298,7 @@
             },
             success: function(data) {
                 console.log(data.id_barang);
+
                 $('#id').val(data.id_barang);
                 $('#nama_barang').val(data.nama_barang);
                 // $("#jenis_id").find(`option[value=${i.id_jenis}]`).prop('selected', true);
