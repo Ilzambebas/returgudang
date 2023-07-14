@@ -28,7 +28,7 @@ class UserController extends Controller
             $user = new User;
             $user->nama_user = $request->get('nama_user');
             $user->username = $request->get('username');
-            $user->password = $request->get('password');
+            $user->password = Hash::make($request->get('password'));
             $user->no_hp = $request->get('no_hp');
             $user->level = $request->get('level');
             $user->created_at = date('Y-m-d H:i:s');

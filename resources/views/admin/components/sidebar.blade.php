@@ -36,9 +36,11 @@
                     <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Main</span>
                 </a>
                 <ul id="dropdown-example" class="{{ Request::segment(1) == 'return' ? '' : 'hidden' }}  py-2 space-y-2">
-                    <li class="px-3">
-                        <a href="" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'data-return' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Data Return</a>
-                    </li>
+                    @if(auth()->user()->level == 'admin')
+                        <li class="px-3">
+                            <a href="" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'data-return' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Data Return</a>
+                        </li>
+                    @endif
                     <li class="px-3">
                         <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'return-layak-pakai' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Return Layak Pakai</a>
                     </li>
@@ -50,97 +52,99 @@
                     </li>
                 </ul>
              </li>
-             <li class="mt-0.5 w-full">
-             <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Data Master</span>
-                <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdown-examplee" data-collapse-toggle="dropdown-examplee">
-                <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
-                        </svg>
-                    </div>
-                    <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>User</span>
-                </a>
-                <ul id="dropdown-examplee" class="{{ Request::segment(0) == 'user' ? '' : 'hidden' }} py-2 space-y-2">
-                <li class="px-4">
-                        <a href="{{ route('user.index') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(0) == 'user' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                    </li>
-                    </li>
-                </ul>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-example" data-collapse-toggle="dropdownn-example">
+             @if(auth()->user()->level == 'admin')
+                <li class="mt-0.5 w-full">
+                <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Data Master</span>
+                    <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdown-examplee" data-collapse-toggle="dropdown-examplee">
                     <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
-                        </svg>
-                    </div>
-                    <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Barang</span>
-                </a>
-                <ul id="dropdownn-example" class="{{Request::segment(1) == 'Barang' ? '' : 'hidden' }} py-2 space-y-2">
-                <li class="px-4">
-                        <a href="{{ route('barang.barang') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700  {{ Request::segment(1) == 'Barang' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                    </li>
-                    </li>
-                </ul>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-examplee" data-collapse-toggle="dropdownn-examplee">
-                    <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
-                        </svg>
-                    </div>
-                    <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Satuan</span>
-                </a>
-                <ul id="dropdownn-examplee" class="{{Request::segment(2) == 'satuan' ? '' : 'hidden' }} py-2 space-y-2">
-                <li class="px-4">
-                        <a href="{{ route('satuan.satuan') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700  {{ Request::segment(2) == 'Satuan' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                    </li>
-                    </li>
-                </ul>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-examplle" data-collapse-toggle="dropdownn-examplle">
-                    <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
-                        </svg>
-                    </div>
-                    <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Bidang</span>
-                </a>
-                <ul id="dropdownn-examplle" class="{{Request::segment(3) == 'Bidang' ? '' : 'hidden' }} py-2 space-y-2">
-                <li class="px-4">
-                        <a href="{{ route('bidang.bidang') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(3) == 'Bidang' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                    </li>
-                    </li>
-                </ul>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownnn-examplee" data-collapse-toggle="dropdownnn-examplee">
-                    <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
-                        </svg>
-                    </div>
-                    <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Jenis</span>
-                </a>
-                <ul id="dropdownnn-examplee" class="{{Request::segment(4) == 'Jenis' ? '' : 'hidden' }} py-2 space-y-2">
-                <li class="px-4">
-                        <a href="{{ route('jenis.jenis') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(4) == 'Jenis' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
-                    </li>
-                    </li>
-                </ul>
-            </li>
-            <li class="mt-0.5 w-full">
-                <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="{{url('/report')}}">
-                    <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0V18.2857H16V9.14286H6.85714V0H0ZM9.14286 0V6.85714H16L9.14286 0ZM2.28571 4.57143H4.57143V6.85714H2.28571V4.57143ZM2.28571 9.14286H4.57143V11.4286H2.28571V9.14286ZM2.28571 13.7143H11.4286V16H2.28571V13.7143Z" fill="#5E72E3"/>
-                        </svg>
-                    </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Laporan</span>
-                </a>
-            </li>
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
+                            </svg>
+                        </div>
+                        <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>User</span>
+                    </a>
+                    <ul id="dropdown-examplee" class="{{ Request::segment(0) == 'user' ? '' : 'hidden' }} py-2 space-y-2">
+                    <li class="px-4">
+                            <a href="{{ route('user.index') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(0) == 'user' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
+                        </li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-example" data-collapse-toggle="dropdownn-example">
+                        <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
+                            </svg>
+                        </div>
+                        <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Barang</span>
+                    </a>
+                    <ul id="dropdownn-example" class="{{Request::segment(1) == 'Barang' ? '' : 'hidden' }} py-2 space-y-2">
+                    <li class="px-4">
+                            <a href="{{ route('barang.barang') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700  {{ Request::segment(1) == 'Barang' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
+                        </li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-examplee" data-collapse-toggle="dropdownn-examplee">
+                        <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
+                            </svg>
+                        </div>
+                        <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Satuan</span>
+                    </a>
+                    <ul id="dropdownn-examplee" class="{{Request::segment(2) == 'satuan' ? '' : 'hidden' }} py-2 space-y-2">
+                    <li class="px-4">
+                            <a href="{{ route('satuan.satuan') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700  {{ Request::segment(2) == 'Satuan' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
+                        </li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-examplle" data-collapse-toggle="dropdownn-examplle">
+                        <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
+                            </svg>
+                        </div>
+                        <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Bidang</span>
+                    </a>
+                    <ul id="dropdownn-examplle" class="{{Request::segment(3) == 'Bidang' ? '' : 'hidden' }} py-2 space-y-2">
+                    <li class="px-4">
+                            <a href="{{ route('bidang.bidang') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(3) == 'Bidang' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
+                        </li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownnn-examplee" data-collapse-toggle="dropdownnn-examplee">
+                        <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0V7.5H7.5V0H0ZM10 0V2.5H20V0H10ZM10 5V7.5H17.5V5H10ZM0 10V17.5H7.5V10H0ZM10 10V12.5H20V10H10ZM10 15V17.5H17.5V15H10Z" fill="#42BE8A"/>
+                            </svg>
+                        </div>
+                        <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>Jenis</span>
+                    </a>
+                    <ul id="dropdownnn-examplee" class="{{Request::segment(4) == 'Jenis' ? '' : 'hidden' }} py-2 space-y-2">
+                    <li class="px-4">
+                            <a href="{{ route('jenis.jenis') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(4) == 'Jenis' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
+                        </li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="{{url('/report')}}">
+                        <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0V18.2857H16V9.14286H6.85714V0H0ZM9.14286 0V6.85714H16L9.14286 0ZM2.28571 4.57143H4.57143V6.85714H2.28571V4.57143ZM2.28571 9.14286H4.57143V11.4286H2.28571V9.14286ZM2.28571 13.7143H11.4286V16H2.28571V13.7143Z" fill="#5E72E3"/>
+                            </svg>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Laporan</span>
+                    </a>
+                </li>
+             @endif
         </ul>
     </div>
 </aside>

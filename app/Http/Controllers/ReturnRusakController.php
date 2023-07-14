@@ -7,6 +7,7 @@ use App\Models\Bidang;
 use App\Models\Jenis;
 use App\Models\ReturnBarang;
 use App\Models\ReturnBarangDetail;
+use App\Models\Satuan;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -24,13 +25,7 @@ class ReturnRusakController extends Controller
     public function index()
     {
         $data = ReturnBarang::select('tabel_return.*',
-                            'tabel_detail_return.id_detail_return',
-                            'tabel_detail_return.keterangan',
-                            'tabel_detail_return.no_po',
-                            'tabel_detail_return.nama_pic',
-                            'tabel_detail_return.jumlah','tabel_detail_return.no_pekerjaan',
-                            'tabel_detail_return.id_bidang','tabel_detail_return.jenis',
-                            'tabel_detail_return.status_return','tabel_detail_return.status_penerimaan',
+                            'tabel_detail_return.*',
                             'tabel_bidang.id_bidang as id','tabel_bidang.nama_bidang',
                             'tabel_jenis.id_jenis','tabel_jenis.nama_jenis')
                             ->join('tabel_detail_return','tabel_detail_return.id_return','tabel_return.id_return')
@@ -216,6 +211,27 @@ class ReturnRusakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    function prosesPengecekan($id) {
+        $data = ReturnBarang::select('tabel_return.*',
+                'tabel_detail_return.id_detail_return',
+                'tabel_detail_return.keterangan',
+                'tabel_detail_return.no_po',
+                'tabel_detail_return.nama_pic',
+                'tabel_detail_return.jumlah','tabel_detail_return.no_pekerjaan',
+                'tabel_detail_return.id_bidang','tabel_detail_return.jenis',
+                'tabel_detail_return.status_return','tabel_detail_return.status_penerimaan',
+                'tabel_bidang.id_bidang as id','tabel_bidang.nama_bidang',
+                'tabel_jenis.id_jenis','tabel_jenis.nama_jenis')
+                    ->join('tabel_detail_return','tabel_detail_return.id_return','tabel_return.id_return')
+                    ->join('tabel_jenis','tabel_jenis.id_jenis','tabel_detail_return.jenis')
+                    ->join('tabel_bidang','tabel_bidang.id_bidang','tabel_detail_return.id_bidang')
+                    ->where('tabel_detail_return.id_detail_return',$id)
+                    ->first();
+        $barang = Bidang::where('status','Ya')->get();
+        $jenis = Jenis::where('status','Ya')->get();
+        return view('admin.pages.return.return-rusak.proses-pengecekan',compact('data','barang','jenis'));
+    }
     public function destroy($id)
     {
         //
@@ -230,5 +246,73 @@ class ReturnRusakController extends Controller
         // $jenis = Bidang::where('id_bidang','=',$request->get('id_bidang'))->first()->delete();
 
         // return redirect()->route('bidang.bidang')->with('status', 'Data Berhasil Di Hapus');
+    }
+
+    function prosesPengecekanPost(Request $request) {
+        $detailReturn = ReturnBarangDetail::where('id_detail_return',$request->get('id'))->first();
+        $detailReturn->status_penerimaan = $request->get('status') == 'ya' ? 'Y' : 'T';
+        $detailReturn->update();
+        return redirect()->route('return-rusak.index')->withStatus('Berhasil mengganti status data.');
+
+    }
+
+    function TindakLanjut($id){
+        $data = ReturnBarang::select('tabel_return.*',
+                            'tabel_detail_return.id_detail_return',
+                            'tabel_detail_return.keterangan',
+                            'tabel_detail_return.no_po',
+                            'tabel_detail_return.nama_pic',
+                            'tabel_detail_return.jumlah','tabel_detail_return.no_pekerjaan',
+                            'tabel_detail_return.id_bidang','tabel_detail_return.jenis',
+                            'tabel_detail_return.status_return','tabel_detail_return.status_penerimaan',
+                            'tabel_bidang.id_bidang as id','tabel_bidang.nama_bidang',
+                            'tabel_jenis.id_jenis','tabel_jenis.nama_jenis')
+                                ->join('tabel_detail_return','tabel_detail_return.id_return','tabel_return.id_return')
+                                ->join('tabel_jenis','tabel_jenis.id_jenis','tabel_detail_return.jenis')
+                                ->join('tabel_bidang','tabel_bidang.id_bidang','tabel_detail_return.id_bidang')
+                                ->where('tabel_detail_return.id_detail_return',$id)
+                                ->first();
+        $satuan = Satuan::where('status','Ya')->get();
+        return view('admin.pages.return.return-rusak.tindak-lanjut',compact('data','satuan'));
+
+    }
+
+    function TindakLanjutPost(Request $request) {
+        $request->validate([
+            'keperluan' => 'required',
+            'no_bon' => 'required',
+            'tgl_bon' => 'required',
+            'status_material' => 'required',
+            'satuan' => 'required',
+            'lokasi_penyimpanan' => 'required',
+            'berat' => 'required'
+        ]);
+        try {
+            $tgl = Carbon::createFromFormat('d/m/Y', $request->get('tgl_bon'))->format('Y-m-d');
+            $updateDetail = ReturnBarangDetail::where('tabel_detail_return.id_detail_return',$request->get('id'))->first();
+            if ($request->hasFile('file')) {
+                $photos = $request->file('file');
+                $filename = date('His') . '.' . $photos->getClientOriginalExtension();
+                $path = public_path('return_rusak');
+                if ($photos->move($path, $filename)) {
+                    $updateDetail->lokasi = $filename;
+                } else {
+                    return redirect()->back()->withError('Terjadi kesalahan.');
+                }
+            }
+            $updateDetail->no_bon = $request->get('tgl_bon');
+            $updateDetail->tgl_bon = $tgl;
+            $updateDetail->lokasi_penyimpanan = $request->get('lokasi_penyimpanan');
+            $updateDetail->berat = $request->get('berat');
+            $updateDetail->keperluan = $request->get('keperluan');
+            $updateDetail->satuan = $request->get('satuan');
+            $updateDetail->update();
+            return redirect()->route('return-rusak.index')->withStatus('Berhasil menambahkan data.');
+
+        } catch (Exception $th) {
+            return redirect()->route('return-rusak.index')->withStatus('Terjadi Kesahalan');
+        } catch (QueryException $e){
+            return redirect()->route('return-rusak.index')->withStatus('Terjadi Kesalahan');
+        }
     }
 }

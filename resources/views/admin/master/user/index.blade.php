@@ -87,6 +87,25 @@
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    const passwordToggle = document.querySelector('.js-password-toggle')
+    console.log(passwordToggle);
+
+    passwordToggle.addEventListener('change', function() {
+    const password = document.querySelector('.js-password'),
+        passwordLabel = document.querySelector('.js-password-label')
+
+    if (password.type === 'password') {
+        password.type = 'text'
+        passwordLabel.innerHTML = 'hide'
+    } else {
+        password.type = 'password'
+        passwordLabel.innerHTML = 'show'
+    }
+
+    password.focus()
+    })
+</script>
+<script>
     var id;
     // edit data
     $('body').on('click','#edit',function(e) {
@@ -116,22 +135,7 @@
         var id_user = $(this).data('id');
         $('.id_user').val(id_user);
     })
-    const passwordToggle = document.querySelector('.js-password-toggle')
 
-    passwordToggle.addEventListener('change', function() {
-    const password = document.querySelector('.js-password'),
-        passwordLabel = document.querySelector('.js-password-label')
-
-    if (password.type === 'password') {
-        password.type = 'text'
-        passwordLabel.innerHTML = 'hide'
-    } else {
-        password.type = 'password'
-        passwordLabel.innerHTML = 'show'
-    }
-
-    password.focus()
-    })
 
 </script>
 @endpush

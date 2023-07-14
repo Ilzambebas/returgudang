@@ -40,16 +40,16 @@
     </div>
 </div>
 <!-- delete modal -->
-
-
 <div class="w-full px-6 py-6 mx-auto">
+    @include('components.notifications')
+
     <div class="flex flex-wrap mt-6 -mx-3">
         <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:flex-none">
             <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl dark:bg-gray-950 border-black-125 rounded-2xl bg-clip-border" style="height: 523px;">
                 <div class="p-4">
                     <div class="flex justify-between">
                         <div>
-                            <h4>Data Return Rusak</h4>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Data Return Rusak</h5>
                         </div>
                         <div>
                             <a href="{{ route('return-rusak.create') }}" class="bg-green text-white py-2 px-4 rounded shadow-lg focus:outline-none openModal">
@@ -66,7 +66,13 @@
                                         <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Deskripsi</th>
                                         <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
                                         <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status Penerimaan</th>
-                                        <th class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
+                                        <th class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                            @if (Auth::user()->level == 'admin')
+                                                Action
+                                            @else
+                                                Nama PIC
+                                            @endif
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="border-t">
@@ -99,29 +105,47 @@
                                             </td>
                                             <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                                 @if ($item->status_penerimaan == 'Y')
-                                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Ya</span>
+                                                    @if (Auth::user()->level == 'admin')
+                                                        @if ($item->keperluan != NULL)
+                                                            <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Selesai Tindak Lanjut</span>
+                                                        @else
+                                                            <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"><a href="{{ route('return-rusak.tindaklanjut',$item->id_detail_return) }}">Tindak Lanjut</a></span>
+                                                        @endif
+                                                    @else
+                                                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Diterima</span>
+
+                                                    @endif
                                                 @elseif ($item->status_penerimaan == 'T')
-                                                    <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Tidak</span>
+                                                    <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Ditolak</span>
                                                 @else
-                                                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Pending</span>
+                                                    @if (Auth::user()->level == 'admin')
+                                                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"><a href="{{ route('return-rusak.prosesPengecekan',$item->id_detail_return) }}">Proses Pengecekan</a></span>
+                                                    @else
+                                                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Pending</span>
+
+                                                    @endif
                                                 @endif
                                             </td>
-
                                             <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                                <div class="flex items-center justify-center">
-                                                    <a href="{{ route('return-rusak.edit',$item->id_detail_return) }}" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3">
-                                                        <div class="font-sm">Edit</div>
-                                                        <div class="content-center mx-1">
-                                                            <img src="{{ asset('img/edit.svg') }}" alt="">
-                                                        </div>
-                                                    </a>
-                                                    <button type="button" data-modal-target="hapusModal" data-modal-toggle="hapusModal" class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-center hapus-data" data-id="{{ $item->id_return }}">
-                                                        <div class="font-sm">Hapus</div>
-                                                        <div class="content-center mx-1">
-                                                            <img src="{{ asset('img/hapus.svg') }}" alt="">
-                                                        </div>
-                                                    </button>
-                                                </div>
+                                                @if (Auth::user()->level == 'admin')
+                                                    <div class="flex items-center justify-center">
+                                                        <a href="{{ route('return-rusak.edit',$item->id_detail_return) }}" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3">
+                                                            <div class="font-sm">Edit</div>
+                                                            <div class="content-center mx-1">
+                                                                <img src="{{ asset('img/edit.svg') }}" alt="">
+                                                            </div>
+                                                        </a>
+                                                        <button type="button" data-modal-target="hapusModal" data-modal-toggle="hapusModal" class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-center hapus-data" data-id="{{ $item->id_return }}">
+                                                            <div class="font-sm">Hapus</div>
+                                                            <div class="content-center mx-1">
+                                                                <img src="{{ asset('img/hapus.svg') }}" alt="">
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                @else
+                                                    {{ $item->nama_pic }}
+
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
