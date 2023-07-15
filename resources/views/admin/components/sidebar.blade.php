@@ -38,14 +38,14 @@
                 <ul id="dropdown-example" class="{{ Request::segment(1) == 'return' ? '' : 'hidden' }}  py-2 space-y-2">
                     @if(auth()->user()->level == 'admin')
                         <li class="px-3">
-                            <a href="" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'data-return' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Data Return</a>
+                            <a href="{{ route('data-return.index') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'data-return' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Data Return</a>
                         </li>
                     @endif
                     <li class="px-3">
-                        <a href="#" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'return-layak-pakai' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Return Layak Pakai</a>
+                        <a href="{{ route('return-layak-pakai.index') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'return-layak-pakai' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Return Layak Pakai</a>
                     </li>
                     <li class="px-3">
-                        <a href="" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'return-layak-repair' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Return Layak Repair</a>
+                        <a href="{{ route('return-layak-repair.index') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'return-layak-repair' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Return Layak Repair</a>
                     </li>
                     <li class="px-3">
                         <a href="{{ route('return-rusak.index') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700 {{ Request::segment(2) == 'return-rusak' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">Return Rusak</a>

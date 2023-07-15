@@ -89,11 +89,9 @@
                                                 <p class="mb-0 text-sm font-semibold leading-normal dark:text-white dark:opacity-60">{{ \Carbon\Carbon::parse($item->tgl_pengembalian)->translatedFormat('d-F-Y') }}</p>
                                             </td>
                                             <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                                    <a href="{{ route('return-rusak.show',$item->id_detail_return) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                                        <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60 ">
-                                                        {{ $item->keterangan }}
-                                                        </span>
-                                                    </a>
+                                                <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60 ">
+                                                {{ $item->keterangan }}
+                                                </span>
                                             </td>
                                             <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                                 <span class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
@@ -128,20 +126,31 @@
                                             </td>
                                             <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                                 @if (Auth::user()->level == 'admin')
-                                                    <div class="flex items-center justify-center">
-                                                        <a href="{{ route('return-rusak.edit',$item->id_detail_return) }}" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-center mx-3">
-                                                            <div class="font-sm">Edit</div>
-                                                            <div class="content-center mx-1">
-                                                                <img src="{{ asset('img/edit.svg') }}" alt="">
-                                                            </div>
-                                                        </a>
-                                                        <button type="button" data-modal-target="hapusModal" data-modal-toggle="hapusModal" class="bg-danger text-white py-2 px-4 rounded shadow-lg flex items-center hapus-data" data-id="{{ $item->id_return }}">
-                                                            <div class="font-sm">Hapus</div>
-                                                            <div class="content-center mx-1">
-                                                                <img src="{{ asset('img/hapus.svg') }}" alt="">
-                                                            </div>
-                                                        </button>
-                                                    </div>
+                                                <div class="inline-flex rounded-md shadow-sm" role="group">
+                                                    <a href="{{ route('return-rusak.show',$item->id_detail_return) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                        <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">     <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">       <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>       <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>     </g>   </svg>
+                                                        Detail
+                                                    </a>
+                                                    <a href="{{ route('return-rusak.edit',$item->id_detail_return) }}"class="  inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-yellow-300 border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                        <svg class="w-3 h-3 mr-2 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279"/>
+                                                        </svg>
+                                                      Edit
+                                                    </a>
+                                                    <button
+                                                        type="button"
+                                                        data-modal-target="hapusModal"
+                                                        data-modal-toggle="hapusModal"
+                                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-danger border border-gray-200 rounded-r-md hover:bg-gray-100
+                                                        hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600
+                                                        dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white hapus-data"
+                                                        data-id="{{ $item->id_return }}">
+                                                        <svg class="w-3 h-3 mr-2 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/>
+                                                        </svg>
+                                                      Hapus
+                                                    </button>
+                                                </div>
                                                 @else
                                                     {{ $item->nama_pic }}
 

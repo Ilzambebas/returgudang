@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ReturnBarang;
 use Illuminate\Http\Request;
 
 class DataReturnController extends Controller
@@ -13,7 +14,16 @@ class DataReturnController extends Controller
      */
     public function index()
     {
-        //
+        $data = ReturnBarang::select('tabel_return.*',
+                        'tabel_detail_return.*',
+                        'tabel_bidang.id_bidang as id','tabel_bidang.nama_bidang',
+                        'tabel_jenis.id_jenis','tabel_jenis.nama_jenis')
+                        ->join('tabel_detail_return','tabel_detail_return.id_return','tabel_return.id_return')
+                        ->join('tabel_jenis','tabel_jenis.id_jenis','tabel_detail_return.jenis')
+                        ->join('tabel_bidang','tabel_bidang.id_bidang','tabel_detail_return.id_bidang')
+                        ->where('status_penerimaan','Y')
+                        ->get();
+        return view('admin.pages.return.index',compact('data'));
     }
 
     /**

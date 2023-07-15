@@ -111,7 +111,7 @@
                             <p class="text-sm ">{{ $data->lokasi_penyimpanan  != null ? $data->lokasi_penyimpanan : '-'}}</p>
                             <div class="h-50 h-50">
                                 <div>
-                                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('return_rusak/'.$data->lokasi) }}" alt="">
+                                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('return_layak/'.$data->lokasi) }}" alt="">
                                 </div>
                             </div>
                         </div>

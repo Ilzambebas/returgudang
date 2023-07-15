@@ -52,8 +52,22 @@ Route::middleware(['auth'])->group(function () {
         // data return
         Route::resource('data-return',DataReturnController::class);
         // return layak pakai
+        Route::post('return-layak-pakai/tindak-lanjut/post', [ReturnLayakPakaiController::class,'TindakLanjutPost'])->name('return-layak-pakai.tindaklanjutpost');
+        Route::get('return-layak-pakai/tindak-lanjut/{id}', [ReturnLayakPakaiController::class,'TindakLanjut'])->name('return-layak-pakai.tindaklanjut');
+        // proses pengecekan
+        Route::post('return-layak-pakai/proses-pengecekan/post', [ReturnLayakPakaiController::class,'prosesPengecekanPost'])->name('return-layak-pakai.prosesPengecekanPost');
+        Route::get('return-layak-pakai/proses-pengecekan/{id}', [ReturnLayakPakaiController::class,'prosesPengecekan'])->name('return-layak-pakai.prosesPengecekan');
+
+        Route::post('return-layak-pakai/destroy-data', [ReturnLayakPakaiController::class,'destroyData'])->name('return-layak-pakai.destroyData');
         Route::resource('return-layak-pakai',ReturnLayakPakaiController::class);
         // return layak repair
+        Route::post('return-layak-repair/tindak-lanjut/post', [ReturnLayakRepairController::class,'TindakLanjutPost'])->name('return-layak-repair.tindaklanjutpost');
+        Route::get('return-layak-repair/tindak-lanjut/{id}', [ReturnLayakRepairController::class,'TindakLanjut'])->name('return-layak-repair.tindaklanjut');
+        // proses pengecekan
+        Route::post('return-layak-repair/proses-pengecekan/post', [ReturnLayakRepairController::class,'prosesPengecekanPost'])->name('return-layak-repair.prosesPengecekanPost');
+        Route::get('return-layak-repair/proses-pengecekan/{id}', [ReturnLayakRepairController::class,'prosesPengecekan'])->name('return-layak-repair.prosesPengecekan');
+
+        Route::post('return-layak-repair/destroy-data', [ReturnLayakRepairController::class,'destroyData'])->name('return-layak-repair.destroyData');
         Route::resource('return-layak-repair', ReturnLayakRepairController::class);
         // Return Rusak
         // tindak lanjut

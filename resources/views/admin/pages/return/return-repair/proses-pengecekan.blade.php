@@ -44,8 +44,7 @@
                                             <td>{{ $data->nama_bidang }}</td>
                                         </tr>
                                         <tr>
-                                            <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50
-                                            dark:bg-gray-800 dark:text-white dark:bg-gray-400">Jenis Material</th>
+                                            <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:bg-gray-800 dark:text-white dark:bg-gray-400">Jenis Material</th>
                                             <td width="1%">:</td>
                                             <td>{{ $data->nama_jenis }}</td>
                                         </tr>
@@ -58,36 +57,6 @@
                                             <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:bg-gray-800 dark:text-white dark:bg-gray-400">Tgl Pengembalian</th>
                                             <td width="1%">:</td>
                                             <td>{{ \Carbon\Carbon::parse($data->tgl_pengembalian)->translatedFormat('d-F-Y') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50
-                                            dark:bg-gray-800 dark:text-white dark:bg-gray-400">Satuan</th>
-                                            <td width="1%">:</td>
-                                            <td>{{ $data->satuan != null ? $data->satuan : '-'  }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50
-                                            dark:bg-gray-800 dark:text-white dark:bg-gray-400">Keperluan</th>
-                                            <td width="1%">:</td>
-                                            <td>{{ $data->keperluan != null ? $data->keperluan : '-' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50
-                                            dark:bg-gray-800 dark:text-white dark:bg-gray-400">Nomor BON</th>
-                                            <td width="1%">:</td>
-                                            <td>{{ $data->no_bon != null ? $data->no_bon : '-'}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50
-                                            dark:bg-gray-800 dark:text-white dark:bg-gray-400">Tanggal BON</th>
-                                            <td width="1%">:</td>
-                                            <td>{{ $data->tgl_bon != null ? \Carbon\Carbon::parse($data->tgl_bon)->translatedFormat('d-F-Y') : '-' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th width="20%" class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50
-                                            dark:bg-gray-800 dark:text-white dark:bg-gray-400">Berat/KG</th>
-                                            <td width="1%">:</td>
-                                            <td>{{ $data->berat != null ? $data->berat : '-' }}</td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -102,27 +71,46 @@
                 <div class="p-4">
                     <div class="">
                         <div>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Proses Pengecekan</h5>
                             <hr class="w-full h-px my-4 bg-gray-400 border-0 dark:bg-gray-900">
                         </div>
                     </div>
                     <div>
                         <div class="p-0 overflow-x-scroll overflow-x-auto mt-4">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lokasi Penyimpanan</h5>
-                            <p class="text-sm ">{{ $data->lokasi_penyimpanan  != null ? $data->lokasi_penyimpanan : '-'}}</p>
-                            <div class="h-50 h-50">
-                                <div>
-                                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('return_rusak/'.$data->lokasi) }}" alt="">
+                            <form action="{{ route('return-layak-repair.prosesPengecekanPost') }}" method="POST">
+                            @csrf
+
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full md:w-full px-2 mb-4">
+                                    <label class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
+                                        Deskripsi
+                                    </label>
+                                    <div class="flex items-center mb-4">
+                                        <input id="country-option-2" type="radio" name="status" value="ya" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="country-option-2" class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                          Ya
+                                        </label>
+                                      </div>
+                                    <div class="flex items-center mb-4">
+                                    <input id="country-option-1" type="radio" name="status" value="tidak" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" checked>
+                                    <label for="country-option-1" class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Tidak
+                                    </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div>
+                    <input type="hidden" name="id" id="" value="{{ $data->id_detail_return }}">
+                    <button type="submit" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-start mx-3">Simpan</button>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
-@push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/datepicker.min.js"></script>
 
-@endpush
+@endsection

@@ -14,7 +14,9 @@ module.exports = {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
             colors:{
-                regalBlue:'#5E72E3'
+                regalBlue:'#5E72E3',
+                yellow: '#FACA15',
+                red: '#E02424',
             }
         },
     },
