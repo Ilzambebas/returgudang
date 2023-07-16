@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ReturnBarang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class DataReturnController extends Controller
 {
@@ -12,17 +14,33 @@ class DataReturnController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = ReturnBarang::select('tabel_return.*',
+
+        // return $request->get('start');
+        Session::forget('dari');
+        Session::forget('sampai');
+        $query = ReturnBarang::select('tabel_return.*',
                         'tabel_detail_return.*',
                         'tabel_bidang.id_bidang as id','tabel_bidang.nama_bidang',
                         'tabel_jenis.id_jenis','tabel_jenis.nama_jenis')
                         ->join('tabel_detail_return','tabel_detail_return.id_return','tabel_return.id_return')
                         ->join('tabel_jenis','tabel_jenis.id_jenis','tabel_detail_return.jenis')
                         ->join('tabel_bidang','tabel_bidang.id_bidang','tabel_detail_return.id_bidang')
-                        ->where('status_penerimaan','Y')
-                        ->get();
+                        ->where('status_penerimaan','Y');
+
+        if ($request->has('start') || $request->has('end')) {
+            $start = $request->get('start');
+            $end = $request->get('end');
+            Session::put('dari',$start);
+            Session::put('sampai',$end);
+            $data = $query->whereBetween('tabel_return.tgl_pengembalian',[$start,$end])->get();
+        } else {
+            // Session::put('dari',Carbon::now());
+            // Session::put('sampai',$request->get('sampai'));
+            $data = $query->get();
+        }
+        // return $data;
         return view('admin.pages.return.index',compact('data'));
     }
 
@@ -90,5 +108,40 @@ class DataReturnController extends Controller
     public function destroy($id)
     {
         //
+    }
+    function detailPdf($id) {
+        $data = ReturnBarang::select('tabel_return.*',
+                            'tabel_detail_return.*',
+                            'tabel_bidang.id_bidang as id','tabel_bidang.nama_bidang',
+                            'tabel_jenis.id_jenis','tabel_jenis.nama_jenis')
+                                ->join('tabel_detail_return','tabel_detail_return.id_return','tabel_return.id_return')
+                                ->join('tabel_jenis','tabel_jenis.id_jenis','tabel_detail_return.jenis')
+                                ->join('tabel_bidang','tabel_bidang.id_bidang','tabel_detail_return.id_bidang')
+                                ->where('tabel_detail_return.id_detail_return',$id)
+                                ->get();
+        return view('admin.pages.return.detail-pdf',compact('data'));
+    }
+    function pdf() {
+        $query = ReturnBarang::select('tabel_return.*',
+                        'tabel_detail_return.*',
+                        'tabel_bidang.id_bidang as id','tabel_bidang.nama_bidang',
+                        'tabel_jenis.id_jenis','tabel_jenis.nama_jenis')
+                        ->join('tabel_detail_return','tabel_detail_return.id_return','tabel_return.id_return')
+                        ->join('tabel_jenis','tabel_jenis.id_jenis','tabel_detail_return.jenis')
+                        ->join('tabel_bidang','tabel_bidang.id_bidang','tabel_detail_return.id_bidang')
+                        ->where('status_penerimaan','Y');
+
+        if (Session::has('start') || Session::has('end')) {
+            $start = Session::get('dari');
+            $end = Session::get('sampai');
+            $data = $query->whereBetween('tabel_return.tgl_pengembalian',[$start,$end])->get();
+        } else {
+            // Session::put('dari',Carbon::now());
+            // Session::put('sampai',$request->get('sampai'));
+            $data = $query->get();
+
+        }
+
+        return view('admin.pages.return.pdf',compact('data'));
     }
 }

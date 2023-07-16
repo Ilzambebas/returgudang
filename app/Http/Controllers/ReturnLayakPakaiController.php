@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class ReturnLayakPakaiController extends Controller
 {
@@ -84,6 +85,23 @@ class ReturnLayakPakaiController extends Controller
             $detailReturn->keterangan = $request->get('deskripsi');
             $detailReturn->status_return = 'layak pakai';
             $detailReturn->save();
+
+            $tgl_pengembalian = Carbon::parse($detailReturn->tgl_pengembalian)->translatedFormat('d-F-Y');
+            $user = Auth::user()->nama_user;
+
+            $sttus = $detailReturn->status_penerimaan == 'T' ? 'Ditolak' : 'Diterima';
+            $text = "Data baru ditambahkan\n"
+            . "<b>Tanggal Pengembalian :  $tgl_pengembalian </b>\n"
+            . "<b>Deskripsi : $detailReturn->keterangan</b>\n"
+            . "<b>Status : $detailReturn->status_return </b>\n"
+            . "<b>Status Penerimaan :  $sttus</b>\n"
+            . "<b>User : $user </b>\n";
+
+            Telegram::sendMessage([
+                'chat_id' => -1001818053583,
+                'parse_mode' => 'HTML',
+                'text' => $text
+            ]);
             return redirect()->route('return-layak-pakai.store')->withStatus('Berhasil menambahkan data.');
         } catch (Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');

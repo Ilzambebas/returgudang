@@ -5,8 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BidangController;
+use App\Http\Controllers\BotTelegramController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataReturnController;
 use App\Http\Controllers\JenisController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ReturnLayakPakaiController;
 use App\Http\Controllers\ReturnLayakRepairController;
 use App\Http\Controllers\ReturnRusakController;
@@ -38,7 +41,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::middleware(['auth'])->group(function () {
     // Dashboard
-    Route::get('', function(){ return view('admin.pages.dashboard.dashboard'); });
+    Route::get('/',[DashboardController::class,'index'])->name('dashboard');
+    // Route::get('', function(){ return view('admin.pages.dashboard.dashboard'); });
     // user
     Route::get('/user', [UserController::class,'index'])->name('user.index');
     Route::post('/user/create', [UserController::class,'create'])->name('user.create');
@@ -50,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     // Data Main (Return)
     Route::prefix('return')->group(function () {
         // data return
+        Route::get('data-return/detail-pdf/{id}',[DataReturnController::class,'detailPdf'])->name('data-return.detail.pdf');
+        Route::get('data-return/pdf',[DataReturnController::class,'pdf'])->name('data-return.pdf');
         Route::resource('data-return',DataReturnController::class);
         // return layak pakai
         Route::post('return-layak-pakai/tindak-lanjut/post', [ReturnLayakPakaiController::class,'TindakLanjutPost'])->name('return-layak-pakai.tindaklanjutpost');
@@ -78,7 +84,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('return-rusak/proses-pengecekan/{id}', [ReturnRusakController::class,'prosesPengecekan'])->name('return-rusak.prosesPengecekan');
 
         Route::post('return-rusak/destroy-data', [ReturnRusakController::class,'destroyData'])->name('return-rusak.destroyData');
-        Route::resource('return-rusak', ReturnRusakController::class);
+        // Route::resource('return-rusak', ReturnRusakController::class);
     });
     Route::get('/return', function(){ return view('admin.pages.return.index'); })->name('return.index');
 
@@ -118,7 +124,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('barang/edit',[BarangController::class,'edit'])->name('barang.edit');
     Route::post('/barang/update',[BarangController::class,'update'])->name('barang.update');
     Route::post('barang/destroy', [BarangController::class,'destroy'])->name('barang.destroy');
+
+    // laporan
+    Route::get('laporan/{id}',[LaporanController::class,'pdf'])->name('laporan.pdf');
+    Route::get('laporan',[LaporanController::class,'index'])->name('laporan');
+
+    // telegram
 });
+Route::resource('return-rusak', ReturnRusakController::class);
+Route::get('setWebhook',[BotTelegramController::class,'setWebhook']);
+Route::get('test/webhook',[BotTelegramController::class,'commandHandlerWebhook']);
 
 
 
