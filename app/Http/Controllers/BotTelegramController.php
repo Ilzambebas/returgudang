@@ -26,13 +26,15 @@ class BotTelegramController extends Controller
         ->first();
         $tgl_pengembalian = Carbon::parse($detailReturn->tgl_pengembalian)->translatedFormat('d-F-Y');
         $sttus = $detailReturn->status_penerimaan == 'T' ? 'Ditolak' : 'Diterima';
-
+        $link = route('return-layak-repair.index');
+        $user = 'rifjan';
         $text = "Data baru ditambahkan\n"
             . "<b>Tanggal Pengembalian :  $tgl_pengembalian </b>\n"
             . "<b>Deskripsi : $detailReturn->keterangan</b>\n"
             . "<b>Status : $detailReturn->status_return </b>\n"
             . "<b>Status Penerimaan :  $sttus</b>\n"
-            . "<b>User : $user </b>\n";
+            . "<b>User : $user </b>\n"
+            . "<b>Link : $link </b>\n";
 
         Telegram::sendMessage([
             'chat_id' => -1001818053583,

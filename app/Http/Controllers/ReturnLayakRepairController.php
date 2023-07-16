@@ -94,12 +94,14 @@ class ReturnLayakRepairController extends Controller
             $user = Auth::user()->nama_user;
 
             $sttus = $detailReturn->status_penerimaan == 'T' ? 'Ditolak' : 'Diterima';
+            $link = route('return-layak-repair.index');
             $text = "Data baru ditambahkan\n"
             . "<b>Tanggal Pengembalian :  $tgl_pengembalian </b>\n"
             . "<b>Deskripsi : $detailReturn->keterangan</b>\n"
             . "<b>Status : $detailReturn->status_return </b>\n"
             . "<b>Status Penerimaan :  $sttus</b>\n"
-            . "<b>User : $user </b>\n";
+            . "<b>User : $user </b>\n"
+            . "<b>Link : $link </b>\n";
 
             Telegram::sendMessage([
                 'chat_id' => -1001818053583,
