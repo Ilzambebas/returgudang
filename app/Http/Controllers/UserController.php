@@ -50,7 +50,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $user = User::where('id_user',$request->get('id_user'))->first();
+        $user = User::where('id_user',$request->get('id'))->first();
         $user->nama_user = $request->get('nama_user');
         if ($request->get('password') != null || $request->has('password')) {
             $user->password = Hash::make($request->get('password'));

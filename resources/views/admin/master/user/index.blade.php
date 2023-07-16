@@ -117,8 +117,8 @@
                 id:id
             },
             success: function(data) {
-                // console.log(data);
-                $('#id_user').val(data.id_user);
+                // console.log(data.id_user);
+                $('.id').val(data.id_user);
                 $('#nama_user').val(data.nama_user);
                 $('#username').val(data.username);
                 $('#no_hp').val(data.no_hp);
