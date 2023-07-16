@@ -6,7 +6,7 @@
                 <li class="text-sm leading-normal">
                     <a class="text-white opacity-50" href="javascript:;">Halaman</a>
                 </li>
-                <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Dashboard</li>
+                <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">{{ ucwords(str_replace('-',' ',Request::segment(1))) }}</li>
             </ol>
         </nav>
 
