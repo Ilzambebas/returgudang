@@ -73,7 +73,6 @@
                                         <option value="user">User</option>
                                     </select>
                                 </div>
-                            </div>
                                 <div class="w-full p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                     <div class="flex justify-between">
                                         <button type="submit" class="bg-warning text-white py-2 px-4 rounded shadow-lg flex items-start mx-3">Simpan</button>
