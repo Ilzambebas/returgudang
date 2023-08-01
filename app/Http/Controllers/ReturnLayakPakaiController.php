@@ -90,7 +90,14 @@ class ReturnLayakPakaiController extends Controller
             $tgl_pengembalian = Carbon::parse($detailReturn->tgl_pengembalian)->translatedFormat('d-F-Y');
             $user = Auth::user()->nama_user;
             $link = route('return-layak-pakai.index');
-            $sttus = $detailReturn->status_penerimaan == 'T' ? 'Ditolak' : 'Diterima';
+            if ($detailReturn->status_penerimaan == 'T') {
+                $sttus = 'Ditolak';
+            } elseif ($detailReturn->status_penerimaan == 'Y') {
+                $sttus = 'Diterima';
+            } else {
+                $sttus = 'Pending';
+            }
+
             $text = "Data baru ditambahkan\n"
             . "<b>Tanggal Pengembalian :  $tgl_pengembalian </b>\n"
             . "<b>Deskripsi : $detailReturn->keterangan</b>\n"
