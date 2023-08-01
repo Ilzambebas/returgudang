@@ -52,8 +52,10 @@
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Data Return Rusak</h5>
                         </div>
                         <div>
-                            <a href="{{ route('return-rusak.create') }}" class="bg-green text-white py-2 px-4 rounded shadow-lg focus:outline-none openModal">
-                            Tambah Data</a>
+                            @if (Auth::user()->level != 'admin')
+                                <a href="{{ route('return-rusak.create') }}" class="bg-green text-white py-2 px-4 rounded shadow-lg focus:outline-none openModal">
+                                Tambah Data</a>
+                            @endif
                         </div>
                     </div>
                     <div>
