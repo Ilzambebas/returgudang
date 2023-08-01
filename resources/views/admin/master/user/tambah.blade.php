@@ -24,7 +24,7 @@
                         <form action="{{ route('return-layak-repair.store') }}" method="POST">
                         @csrf
                         <div class="p-0 overflow-x-scroll overflow-x-auto mt-4">
-                            <div class="flex flex-wrap -mx-2">
+                            <div class="-mx-2">
                                  <div class="p-6 space-y-6">
                                 <div class="w-full md:w-1/2 px-2 mb-4">
                                     <label class="block text-sm">
