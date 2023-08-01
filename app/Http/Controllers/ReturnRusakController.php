@@ -90,7 +90,7 @@ class ReturnRusakController extends Controller
             $detailReturn->jenis = $request->get('jenis_id');
             $detailReturn->keterangan = $request->get('deskripsi');
             $detailReturn->status_return = 'rusak';
-            $detailReturn->status_penerimaan = 'T';
+            $detailReturn->status_penerimaan = NULL;
             $detailReturn->save();
 
             $tgl_pengembalian = Carbon::parse($detailReturn->tgl_pengembalian)->translatedFormat('d-F-Y');
