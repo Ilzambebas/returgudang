@@ -23,6 +23,7 @@ class BotTelegramController extends Controller
         ->join('tabel_jenis','tabel_jenis.id_jenis','tabel_detail_return.jenis')
         ->join('tabel_bidang','tabel_bidang.id_bidang','tabel_detail_return.id_bidang')
         ->where('status_return','rusak')
+        ->orderBy('tabel_detail_return.id','DESC')
         ->first();
         $tgl_pengembalian = Carbon::parse($detailReturn->tgl_pengembalian)->translatedFormat('d-F-Y');
         $sttus = $detailReturn->status_penerimaan == 'T' ? 'Ditolak' : 'Diterima';
