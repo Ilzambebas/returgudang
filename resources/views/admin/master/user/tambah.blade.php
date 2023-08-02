@@ -1,7 +1,25 @@
 @extends('admin.layouts.app')
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const passwordToggle = document.querySelector('.js-password-toggle')
+    console.log(passwordToggle);
 
+    passwordToggle.addEventListener('change', function() {
+    const password = document.querySelector('.js-password'),
+        passwordLabel = document.querySelector('.js-password-label')
+
+    if (password.type === 'password') {
+        password.type = 'text'
+        passwordLabel.innerHTML = 'hide'
+    } else {
+        password.type = 'password'
+        passwordLabel.innerHTML = 'show'
+    }
+
+    password.focus()
+    })
 </script>
 @endpush
 @section('content')
@@ -21,7 +39,7 @@
                         <div class="py-4">
                             <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         </div>
-                        <form action="{{ route('return-layak-repair.store') }}" method="POST">
+                        <form action="{{ route('user.store') }}" method="POST">
                         @csrf
                         <div class="p-0 overflow-x-scroll overflow-x-auto mt-4">
                             <div class="-mx-2">
