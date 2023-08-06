@@ -110,11 +110,11 @@ class ReturnLayakRepairController extends Controller
             . "<b>User : $user </b>\n"
             . "<b>Link : $link </b>\n";
 
-            Telegram::sendMessage([
-                'chat_id' => -1001818053583,
-                'parse_mode' => 'HTML',
-                'text' => $text
-            ]);
+            // Telegram::sendMessage([
+            //     'chat_id' => -1001818053583,
+            //     'parse_mode' => 'HTML',
+            //     'text' => $text
+            // ]);
 
             $detailReturn->save();
             return redirect()->route('return-layak-repair.store')->withStatus('Berhasil menambahkan data.');
@@ -335,6 +335,7 @@ class ReturnLayakRepairController extends Controller
             $updateDetail->keperluan = $request->get('keperluan');
             $updateDetail->satuan = $request->get('satuan');
             $updateDetail->deskripsi_ket = $request->get('deskripsi_keterangan');
+
             $link = route('return-layak-repair.index');
             $tgl_pengembalian = Carbon::parse($updateDetail->tgl_pengembalian)->translatedFormat('d-F-Y');
             $user = Auth::user()->nama_user;
