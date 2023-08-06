@@ -90,12 +90,19 @@ class ReturnRusakController extends Controller
             $detailReturn->jenis = $request->get('jenis_id');
             $detailReturn->keterangan = $request->get('deskripsi');
             $detailReturn->status_return = 'rusak';
+            $detailReturn->status_penerimaan = NULL;
             $detailReturn->save();
 
             $tgl_pengembalian = Carbon::parse($detailReturn->tgl_pengembalian)->translatedFormat('d-F-Y');
             $user = Auth::user()->nama_user;
             $link = route('return-rusak.index');
-            $sttus = $detailReturn->status_penerimaan == 'T' ? 'Ditolak' : 'Diterima';
+            if ($detailReturn->status_penerimaan == 'T') {
+                $sttus = 'Ditolak';
+            } elseif ($detailReturn->status_penerimaan == 'Y') {
+                $sttus = 'Diterima';
+            } else {
+                $sttus = 'Pending';
+            }
             $text = "Data baru ditambahkan\n"
             . "<b>Tanggal Pengembalian :  $tgl_pengembalian </b>\n"
             . "<b>Deskripsi : $detailReturn->keterangan</b>\n"

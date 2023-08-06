@@ -19,8 +19,8 @@
                             <h4>Data User</h4>
                         </div>
                         <div>
-                            <button data-modal-target="createModal" data-modal-toggle="createModal" class="bg-green text-white py-2 px-4 rounded shadow-lg focus:outline-none openModal">
-                                Tambah Data</button>
+                            <a href="{{ route('user.create') }}" class="bg-green text-white py-2 px-4 rounded shadow-lg focus:outline-none openModal">
+                                Tambah Data</a>
                         </div>
                     </div>
                     <div>

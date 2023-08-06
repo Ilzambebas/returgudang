@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('', function(){ return view('admin.pages.dashboard.dashboard'); });
     // user
     Route::get('/user', [UserController::class,'index'])->name('user.index');
-    Route::post('/user/create', [UserController::class,'create'])->name('user.create');
+    Route::get('/user/create', [UserController::class,'create'])->name('user.create');
     Route::post('/user/store', [UserController::class,'store'])->name('user.store');
     Route::get('/user/edit', [UserController::class,'edit'])->name('user.edit');
     Route::post('/user/update', [UserController::class,'update'])->name('user.update');

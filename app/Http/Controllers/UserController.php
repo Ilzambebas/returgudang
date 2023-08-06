@@ -19,7 +19,7 @@ class UserController extends Controller
     }
 
     public function create(){
-        return view('admin.master.user.create');
+        return view('admin.master.user.tambah');
     }
 
     public function store(Request $request)
