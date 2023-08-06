@@ -277,7 +277,7 @@ class ReturnLayakRepairController extends Controller
         if ($request->status == 'ya') {
             $detailReturn->update(['status_penerimaan' => 'Y']);
             return redirect()->route('return-layak-pakai.tindaklanjut', $request->get('id'));
-        } else { 
+        } else {
             $detailReturn->update(['status_penerimaan' => 'T']);
             return redirect()->route('return-layak-repair.index')->withStatus('Berhasil mengganti status data.');
         }
@@ -335,6 +335,30 @@ class ReturnLayakRepairController extends Controller
             $updateDetail->keperluan = $request->get('keperluan');
             $updateDetail->satuan = $request->get('satuan');
             $updateDetail->deskripsi_ket = $request->get('deskripsi_keterangan');
+            $link = route('return-layak-repair.index');
+            $tgl_pengembalian = Carbon::parse($updateDetail->tgl_pengembalian)->translatedFormat('d-F-Y');
+            $user = Auth::user()->nama_user;
+
+            if ($updateDetail->status_penerimaan == 'T') {
+                $sttus = 'Ditolak';
+            } elseif ($updateDetail->status_penerimaan == 'Y') {
+                $sttus = 'Diterima';
+            } else {
+                $sttus = 'Pending';
+            }
+            $text = "Data baru ditambahkan\n"
+            . "<b>Tanggal Pengembalian :  $tgl_pengembalian </b>\n"
+            . "<b>Deskripsi : $updateDetail->keterangan</b>\n"
+            . "<b>Status : $updateDetail->status_return </b>\n"
+            . "<b>Status Penerimaan :  $sttus</b>\n"
+            . "<b>User : $user </b>\n"
+            . "<b>Link : $link </b>\n";
+
+            Telegram::sendMessage([
+                'chat_id' => -1001818053583,
+                'parse_mode' => 'HTML',
+                'text' => $text
+            ]);
             $updateDetail->update();
             return redirect()->route('return-layak-repair.index')->withStatus('Berhasil menambahkan data.');
         } catch (Exception $th) {
