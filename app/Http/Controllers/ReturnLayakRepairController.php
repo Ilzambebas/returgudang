@@ -275,7 +275,7 @@ class ReturnLayakRepairController extends Controller
         // $detailReturn->update();
         if ($request->status == 'ya') {
             $detailReturn->update(['status_penerimaan' => 'Y']);
-            return redirect()->route('return-layak-pakai.tindaklanjut', $request->get('id'));
+            return redirect()->route('return-layak-repair.tindaklanjut', $request->get('id'));
         } else {
             $detailReturn->update(['status_penerimaan' => 'T']);
             return redirect()->route('return-layak-repair.index')->withStatus('Berhasil mengganti status data.');
