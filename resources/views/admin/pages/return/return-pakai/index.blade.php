@@ -49,7 +49,7 @@
                 <div class="p-4">
                     <div class="flex justify-between">
                         <div>
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Data Return Layak Pakai</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Data Return Pakai</h5>
                         </div>
                         <div>
                             <a href="{{ route('return-layak-pakai.create') }}" class="bg-green text-white py-2 px-4 rounded shadow-lg focus:outline-none openModal">

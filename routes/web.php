@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\BotTelegramController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataApiController;
 use App\Http\Controllers\DataReturnController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\LaporanController;
@@ -68,7 +69,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('return-layak-pakai',ReturnLayakPakaiController::class);
         // return layak repair
         Route::post('return-layak-repair/tindak-lanjut/post', [ReturnLayakRepairController::class,'TindakLanjutPost'])->name('return-layak-repair.tindaklanjutpost');
-        Route::get('return-layak-repair/tindak-lanjut/{id}', [ReturnLayakRepairController::class,'TindakLanjut'])->name('return-layak-repair.tindaklanjut');
+
+
+Route::get('return-layak-repair/tindak-lanjut/{id}', [ReturnLayakRepairController::class,'TindakLanjut'])->name('return-layak-repair.tindaklanjut');
         // proses pengecekan
         Route::post('return-layak-repair/proses-pengecekan/post', [ReturnLayakRepairController::class,'prosesPengecekanPost'])->name('return-layak-repair.prosesPengecekanPost');
         Route::get('return-layak-repair/proses-pengecekan/{id}', [ReturnLayakRepairController::class,'prosesPengecekan'])->name('return-layak-repair.prosesPengecekan');
@@ -85,6 +88,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('return-rusak/destroy-data', [ReturnRusakController::class,'destroyData'])->name('return-rusak.destroyData');
         // Route::resource('return-rusak', ReturnRusakController::class);
+        Route::resource('return-rusak', ReturnRusakController::class);
+
     });
     Route::get('/return', function(){ return view('admin.pages.return.index'); })->name('return.index');
 
@@ -118,7 +123,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/jenis/store', [JenisController::class,'store'])->name('jenis.store');
     Route::post('/jenis/destroy', [JenisController::class,'destroy'])->name('jenis.destroy');
 
-    // Data Master (Barang)
+// Data Master (Barang)
     Route::get('/barang',[BarangController::class,'barang'])->name('barang.barang');
     Route::post('barang/post',[BarangController::class,'store'])->name('barang.store');
     Route::get('barang/edit',[BarangController::class,'edit'])->name('barang.edit');
@@ -131,10 +136,9 @@ Route::middleware(['auth'])->group(function () {
 
     // telegram
 });
-Route::resource('return-rusak', ReturnRusakController::class);
 Route::get('setWebhook',[BotTelegramController::class,'setWebhook']);
 Route::get('test/webhook',[BotTelegramController::class,'commandHandlerWebhook']);
 
-
+Route::get('test',[DataApiController::class,'index']);
 
 require __DIR__.'/auth.php';

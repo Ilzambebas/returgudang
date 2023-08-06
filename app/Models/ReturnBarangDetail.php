@@ -11,4 +11,6 @@ class ReturnBarangDetail extends Model
 
     protected $table = 'tabel_detail_return';
     protected $primaryKey = 'id_detail_return';
+
+    protected $fillable = ['status_penerimaan'];
 }

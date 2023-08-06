@@ -103,11 +103,11 @@ class ReturnLayakRepairController extends Controller
             . "<b>User : $user </b>\n"
             . "<b>Link : $link </b>\n";
 
-            Telegram::sendMessage([
-                'chat_id' => -1001818053583,
-                'parse_mode' => 'HTML',
-                'text' => $text
-            ]);
+            // Telegram::sendMessage([
+            //     'chat_id' => -1001818053583,
+            //     'parse_mode' => 'HTML',
+            //     'text' => $text
+            // ]);
 
             $detailReturn->save();
             return redirect()->route('return-layak-repair.store')->withStatus('Berhasil menambahkan data.');
@@ -265,9 +265,15 @@ class ReturnLayakRepairController extends Controller
 
     function prosesPengecekanPost(Request $request) {
         $detailReturn = ReturnBarangDetail::where('id_detail_return',$request->get('id'))->first();
-        $detailReturn->status_penerimaan = $request->get('status') == 'ya' ? 'Y' : 'T';
-        $detailReturn->update();
-        return redirect()->route('return-layak-repair.index')->withStatus('Berhasil mengganti status data.');
+        // $detailReturn->status_penerimaan = $request->get('status') == 'ya' ? 'Y' : 'T';
+        // $detailReturn->update();
+        if ($request->status == 'ya') {
+            $detailReturn->update(['status_penerimaan' => 'Y']);
+            return redirect()->route('return-layak-pakai.tindaklanjut', $request->get('id'));
+        } else { 
+            $detailReturn->update(['status_penerimaan' => 'T']);
+            return redirect()->route('return-layak-repair.index')->withStatus('Berhasil mengganti status data.');
+        }
 
     }
 

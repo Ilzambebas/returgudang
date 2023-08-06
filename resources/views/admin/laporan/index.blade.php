@@ -16,7 +16,7 @@
                 <div class="p-4">
                     <div class="flex justify-between">
                         <div>
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Data Return</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Laporan Data Return</h5>
                         </div>
                     </div>
                     <div>

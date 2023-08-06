@@ -13,7 +13,7 @@
                 <div class="p-4">
                     <div class="">
                         <div>
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Data Return Rusak</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Data Return Repair</h5>
                             <hr class="w-full h-px my-4 bg-gray-400 border-0 dark:bg-gray-900">
                         </div>
                     </div>

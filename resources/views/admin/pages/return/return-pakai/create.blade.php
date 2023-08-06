@@ -13,7 +13,7 @@
                 <div class="p-4">
                     <div class="flex justify-between">
                         <div>
-                            <h4>Data Return</h4>
+                            <h4> Tambah Data Return</h4>
                         </div>
                     </div>
                     <div>
@@ -71,6 +71,7 @@
                                     </label>
                                     <select name="bidang_id"  id="jenis_id" required class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 jenis_id" >
                                         @foreach ($barang as $item)
+                                            <option value="0" hidden="">-- Pilih Disini --</option>
                                             <option value="{{ $item->id_bidang }}">{{ ucwords($item->nama_bidang) }}</option>
                                         @endforeach
                                     </select>
@@ -81,6 +82,7 @@
                                     </label>
                                     <select name="jenis_id"  id="jenis_id" required class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 jenis_id" >
                                         @foreach ($jenis as $itemJenis)
+                                            <option value="0" hidden="">-- Pilih Disini --</option>
                                             <option value="{{ $itemJenis->id_jenis }}">{{ ucwords($itemJenis->nama_jenis) }}</option>
                                         @endforeach
                                     </select>
