@@ -11,6 +11,7 @@ use App\Http\Controllers\DataApiController;
 use App\Http\Controllers\DataReturnController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PicController;
 use App\Http\Controllers\ReturnLayakPakaiController;
 use App\Http\Controllers\ReturnLayakRepairController;
 use App\Http\Controllers\ReturnRusakController;
@@ -71,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('return-layak-repair/tindak-lanjut/post', [ReturnLayakRepairController::class,'TindakLanjutPost'])->name('return-layak-repair.tindaklanjutpost');
 
 
-Route::get('return-layak-repair/tindak-lanjut/{id}', [ReturnLayakRepairController::class,'TindakLanjut'])->name('return-layak-repair.tindaklanjut');
+    Route::get('return-layak-repair/tindak-lanjut/{id}', [ReturnLayakRepairController::class,'TindakLanjut'])->name('return-layak-repair.tindaklanjut');
         // proses pengecekan
         Route::post('return-layak-repair/proses-pengecekan/post', [ReturnLayakRepairController::class,'prosesPengecekanPost'])->name('return-layak-repair.prosesPengecekanPost');
         Route::get('return-layak-repair/proses-pengecekan/{id}', [ReturnLayakRepairController::class,'prosesPengecekan'])->name('return-layak-repair.prosesPengecekan');
@@ -123,7 +124,15 @@ Route::get('return-layak-repair/tindak-lanjut/{id}', [ReturnLayakRepairControlle
     Route::post('/jenis/store', [JenisController::class,'store'])->name('jenis.store');
     Route::post('/jenis/destroy', [JenisController::class,'destroy'])->name('jenis.destroy');
 
-// Data Master (Barang)
+    // Data Master (PIC)
+    Route::get('/pic', [PicController::class,'pic'])->name('pic.pic');
+    Route::get('pic/edit',[PicController::class,'edit'])->name('pic.edit');
+    Route::post('pic/update',[PicController::class,'update'])->name('pic.update');
+    Route::post('/pic/create', [PicController::class,'create'])->name('pic.create');
+    Route::post('/pic/store', [PicController::class,'store'])->name('pic.store');
+    Route::post('/pic/destroy', [PicController::class,'destroy'])->name('pic.destroy');
+    
+    // Data Master (Barang)
     Route::get('/barang',[BarangController::class,'barang'])->name('barang.barang');
     Route::post('barang/post',[BarangController::class,'store'])->name('barang.store');
     Route::get('barang/edit',[BarangController::class,'edit'])->name('barang.edit');

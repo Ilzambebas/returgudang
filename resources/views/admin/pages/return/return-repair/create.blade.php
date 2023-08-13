@@ -49,11 +49,12 @@
                                     <label class="block text-sm">
                                         PIC Yang Ambil
                                     </label>
-                                    <input
-                                        name="pic"
-                                        type="text"
-                                        class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                                        placeholder="Ketik disini" />
+                                    <select name="pic_id"  id="pic_id" required class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pic_id" >
+                                        @foreach ($pic as $items)
+                                            <option value="" hidden="">-- Pilih Disini --</option>
+                                            <option value="{{ $items->id_pic }}">{{ ucwords($items->nama_pic) }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="w-full md:w-1/2 px-2 mb-4">
                                     <label class="block text-sm">
@@ -71,6 +72,7 @@
                                     </label>
                                     <select name="bidang_id"  id="jenis_id" required class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 jenis_id" >
                                         @foreach ($barang as $item)
+                                            <option value="" hidden="">-- Pilih Disini --</option>
                                             <option value="{{ $item->id_bidang }}">{{ ucwords($item->nama_bidang) }}</option>
                                         @endforeach
                                     </select>
@@ -81,6 +83,7 @@
                                     </label>
                                     <select name="jenis_id"  id="jenis_id" required class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 jenis_id" >
                                         @foreach ($jenis as $itemJenis)
+                                            <option value="" hidden="">-- Pilih Disini --</option>
                                             <option value="{{ $itemJenis->id_jenis }}">{{ ucwords($itemJenis->nama_jenis) }}</option>
                                         @endforeach
                                     </select>

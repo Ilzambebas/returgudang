@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bidang;
 use App\Models\Jenis;
+use App\Models\Pic;
 use App\Models\ReturnBarang;
 use App\Models\ReturnBarangDetail;
 use App\Models\Satuan;
@@ -46,7 +47,8 @@ class ReturnLayakRepairController extends Controller
     {
         $barang = Bidang::where('status','Ya')->get();
         $jenis = Jenis::where('status','Ya')->get();
-        return view('admin.pages.return.return-repair.create',compact('barang','jenis'));
+        $pic = Pic::where('status', 'Ya')->get();
+        return view('admin.pages.return.return-repair.create',compact('barang','jenis','pic'));
     }
 
     /**

@@ -13,7 +13,7 @@
                 <div class="p-4">
                     <div class="flex justify-between">
                         <div>
-                            <h4>Data Return</h4>
+                            <h4>Edit Data Return Repair</h4>
                         </div>
                     </div>
                     <div>
@@ -100,6 +100,17 @@
                                     focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow">
                                         {!! $data->keterangan !!}
                                     </textarea>
+                                </div>
+                                <div class="w-full md:w-1/2 px-2 mb-4">
+                                    <label class="block text-sm">
+                                        Lokasi Penyimpanan
+                                    </label>
+                                    <input
+                                        name="no_po"
+                                        type="text"
+                                        value="{{ $data->lokasi_penyimpanan }}"
+                                        class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
+                                        placeholder="Ketik disini" />
                                 </div>
                                 <div class="w-full p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                     <div class="flex justify-end">

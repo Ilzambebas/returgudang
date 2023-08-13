@@ -74,6 +74,22 @@
                     </ul>
                 </li>
                 <li class="mt-0.5 w-full">
+                    <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-exampleee" data-collapse-toggle="dropdownn-exampleee">
+                        <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <svg class="w-5 h-5 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z"/>
+                            </svg>
+                        </div>
+                        <span class="flex-1 ml-1 text-left whitespace-nowrap" sidebar-toggle-item>PIC</span>
+                    </a>
+                    <ul id="dropdownn-exampleee" class="{{Request::segment(5) == 'Pic' ? '' : 'hidden' }} py-2 space-y-2">
+                    <li class="px-4">
+                            <a href="{{ route('pic.pic') }}" class="flex py-2 items-center w-full text-gray-900 transition duration-75 rounded-lg group hover:bg-blue-100 dark:text-white dark:hover:bg-gray-700  {{ Request::segment(5) == 'Pic' ? 'bg-blue-500/13 font-bold' : '' }}" style="padding-left: 68px; font-size: 10pt;">List</a>
+                        </li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-0.5 w-full">
                     <a class="dark:text-white rounded-lg dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer" aria-controls="dropdownn-example" data-collapse-toggle="dropdownn-example">
                         <div class="mr-2 flex h-10 w-10 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <svg class="w-5 h-5 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
