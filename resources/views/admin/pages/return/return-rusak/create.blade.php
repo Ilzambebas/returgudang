@@ -55,7 +55,8 @@
                                             <option value="{{ $items->id_pic }}">{{ ucwords($items->nama_pic) }}</option>
                                         @endforeach
                                     </select>
-                                </div>w-full md:w-1/2 px-2 mb-4">
+                                </div>                                
+                                <div class="w-full md:w-1/2 px-2 mb-4">
                                     <label class="block text-sm">
                                         Nomor Pekerjaan
                                     </label>
