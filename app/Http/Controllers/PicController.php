@@ -14,7 +14,7 @@ class PicController extends Controller
     }
 
     // public function create(){
-    //     return view('admin.master.jenis.create');
+    //     return view('admin.master.pic.create');
     // }
 
     public function store(Request $request)
